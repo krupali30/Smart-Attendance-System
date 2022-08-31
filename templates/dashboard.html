@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Member Registration</title>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    
+    <!-- <script src="app.js"></script> -->
+
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, select, textarea, label, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 22px;
+      }
+      h1 {
+      position: absolute;
+      text-align: center;
+      margin-left: 35%;
+      font-size: 40px;
+      color:black;
+      z-index: 2;
+      line-height: 83px;
+      /*background-color: pink; */
+      }
+      textarea {
+      width: calc(100% - 12px);
+      padding: 5px;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 20px;
+      }
+      form {
+      width: 100%;
+      padding: 20px;
+      border-radius: 6px;
+      background: rgb(246, 249, 250);
+      box-shadow: 0 0 8px  #669999; 
+      }
+
+ 
+      input, select, textarea {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      }
+      input {
+      width: calc(100% - 10px);
+      padding: 5px;
+      }
+
+      textarea {
+      width: calc(100% - 12px);
+      padding: 5px;
+      }
+      .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder {
+      color:  #669999;
+      }
+      .item input:hover, .item select:hover, .item textarea:hover {
+      border: 1px solid transparent;
+      box-shadow: 0 0 3px 0  #669999;
+      color: #669999;
+      }
+      .item {
+      position: relative;
+      margin: 10px 0;
+      }
+      
+      .colums {
+      display:flex;
+      justify-content:space-between;
+      flex-direction:row;
+      flex-wrap:wrap;
+      margin-top: 150px;
+      }
+      .colums div {
+      width:48%;
+      }
+
+      .item i {
+      right: 1%;
+      top: 30px;
+      z-index: 1;
+      }
+  
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px; 
+      background:  #669999;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      margin-bottom: 2em;
+      }
+      button:hover {
+      background:  #a3c2c2;
+      }
+
+
+
+
+
+
+      @media only screen and (max-width: 800px){
+        .colums {
+    
+          display:flex;
+          justify-content:space-between;
+          flex-direction:column;
+          flex-wrap:wrap;
+          align-items: center;
+          margin-top: 200px;
+        }
+   
+
+    h1 {
+      position: absolute;
+      /*left: 0%;*/
+      margin-left: 25%;
+      font-size: 200%;
+      color: black;
+      z-index: 2;
+      line-height: 83px;
+      /* background-color: black; */
+      }
+
+      }
+
+table, th, td {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-collapse: collapse;
+       
+      }
+      th, td {
+        padding: 5px;
+      }
+      th {
+        text-align: center;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="testbox">
+      <form action="dashboard" method="POST">
+       {%csrf_token%}
+       {%include 'msg.html' %}
+        <h1>Attendance Dashboard</h1>
+        <div class="colums">
+          <div class="item">
+            <label for="fname">Search by Date</label>
+            <input id="fname" type="date" name="dt"/>
+          </div>
+          <div class="item">
+            <label for="lname">Search by Name</label>
+            <input id="lname" type="name" name="name" />
+          </div>
+          
+        </div>
+        <div class="btn-block">
+          <button type="submit" href="#">Submit</button>
+        </div>
+
+        <!-- {%include 'msg.html' %} -->
+
+        <div>
+        <table style="width:100%">
+            <tr>
+              <th style="color:black;">Name</th>
+              <th style="color:black;">Date</th> 
+              <th style="color:black;">Time</th>
+              <th style="color:black;">Attendance</th>
+              <th style="color:black;">Abnormal Time</th>
+            </tr>
+            {% for p in pro %}
+                <tr>
+                <td>{{p.name}}</td>
+                <td>{{p.date}}</td>
+                <td>{{p.time}}</td>
+                {%if p.attendance%}
+                <td>Present</td>
+                <td>On Time</td>
+                {%else%}
+                <td>Absent</td>
+                <td>Late</td>
+                {%endif%}
+                </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </form>
+    </div>
+    <!-- <script src="app.js"></script> -->
+  </body>
+
+  <script>
+    setTimeout(function(){
+      if ($('#msg').length>0){
+        $('#msg').remove();
+      }
+    },4000)
+  </script>
+
+  <!-- <script src="app.js"></script> -->
+</html>

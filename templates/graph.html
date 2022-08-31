@@ -1,0 +1,7 @@
+{% block content %}
+<!-- <h1>Hello</h1> -->
+    {% if chart %}
+    <!-- <h1>Hello</h1> -->
+        <img src="data:image/png;base64,{{chart|safe}}" alt="graph">
+    {% endif %}
+{% endblock content%}
